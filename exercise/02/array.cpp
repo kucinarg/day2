@@ -25,8 +25,6 @@ array::array(array && other) noexcept :
   p(std::exchange(other.p, nullptr)),
   n(std::exchange(other.n, 0))
 {
-  other.p = nullptr;
-  other.n = 0;
 }
 
 std::size_t array::size() const noexcept
