@@ -29,7 +29,7 @@ array::array(array && other) noexcept :
   other.n = 0;
 }
 
-std::size_t array::size() const
+std::size_t array::size() const noexcept
 {
   return std::size_t(n);
 }
@@ -58,7 +58,7 @@ array const & array::operator=(array const & other)
   return *this;
 }
 
-array & array::operator=(array && other)
+array & array::operator=(array && other) noexcept
 {
   if (std::addressof(other) == this)
     return *this;

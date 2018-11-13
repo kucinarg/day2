@@ -10,8 +10,8 @@ public:
   array(array const &);
   array(array&&) noexcept;
   ~array() noexcept;
-  std::size_t size() const;
+  std::size_t size() const noexcept;
   double const & at(int i) const;
   array const & operator=(array const &);
-  array& operator=(array && other);
+  array& operator=(array && other) noexcept;
 };
