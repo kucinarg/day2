@@ -1,7 +1,7 @@
 #include "array.h"
 #include <algorithm>
 #include <stdexcept>
-#include <vector>
+#include <memory>
 
 array::array(const int size, const double element)
 {
@@ -22,8 +22,8 @@ array::array(array const & other)
 }
 
 array::array(array && other) noexcept :
-  p(other.p),
-  n(other.n)
+  p(std::exchange(other.p, nullptr)),
+  n(std::exchange(other.n, 0))
 {
   other.p = nullptr;
   other.n = 0;
@@ -53,6 +53,7 @@ array const & array::operator=(array const & other)
 {
   if (std::addressof(other) == this)
     return *this;
+
   array tmp = other;
   *this = std::move(tmp);
   return *this;
@@ -65,10 +66,9 @@ array & array::operator=(array && other) noexcept
 
   if (p)
     delete p;
-  p = other.p;
-  n = other.n;
-  other.p = nullptr;
-  other.n = 0;
+
+  p = std::exchange(other.p, nullptr);
+  n = std::exchange(other.n, 0);
   return *this;
 }
 
