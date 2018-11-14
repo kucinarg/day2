@@ -63,7 +63,7 @@ array & array::operator=(array && other) noexcept
     return *this;
 
   if (p)
-    delete p;
+    delete [] p;
 
   p = std::exchange(other.p, nullptr);
   n = std::exchange(other.n, 0);
